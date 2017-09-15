@@ -1,0 +1,69 @@
+ #include<stdio.h>
+#include<conio.h>
+struct code
+{
+char name[20];
+int count;
+
+};
+void main()
+{
+
+
+char file[20],ch,ch2;
+struct code str[100],temp;
+char word[20];
+int y,k,u=0,large,flag=0,j,i=0,n=0,a[20];
+FILE *f;
+printf("Enter the name of the file which you want to open.");
+gets(file);
+f=fopen(file,"r+");
+while( ( ch = fgetc(f) ) != EOF )
+   {
+       memset(word,'\0',sizeof(word));
+    i=0;
+    fseek(f,-1,SEEK_CUR);
+        flag=0;
+    while((ch=fgetc(f))!=' ' && (ch!=EOF) && ch!='(' && ch!='\n' && ch!=';' && ch!='\t' &&ch!=':' && ch!=',' && ch!='"' && ch!='.'&& ch!='?' && ch!='-' && ch!=' ' && ch!=')')
+    {
+         word[i++]=ch;
+    }
+    if(strcmpi(word," ")!=0)
+    {
+        for(j=0;j<n;j++)
+            if(strcmpi(word,str[j].name)==0)
+            {
+                flag=1;
+                str[j].count=str[j].count+1;
+                break;
+            }
+        if(flag==0)
+        {
+            strncpy(str[n].name,word,sizeof(str[n].name));
+            str[n].count=1;
+            n++;
+        }
+    }
+}
+fclose(f);
+for(i=0;i<n;i++)
+ {
+
+ for(j=i+1;j<n;j++)
+   {
+
+     if(str[i].count>str[j].count)
+        {
+            temp=str[i];
+            str[i]=str[j];
+            str[j]=temp;}
+}}
+for(i=0;i<n;i++)
+
+    printf("\n rank %d \t word %s \t frequency %d",i+1,str[i].name,str[i].count);
+
+
+
+    getch();
+}
+
